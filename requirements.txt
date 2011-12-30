@@ -1,0 +1,14 @@
+Django==1.3.1
+PIL==1.1.7
+psycopg2==2.4.4
+pymongo==2.1
+django-celery==2.4.2
+celery==2.4.5
+tweepy==1.8
+raven==0.7.0
+nose==1.1.2
+selenium==2.15.0
+djangosanetesting==0.5.11
+-e git://github.com/bitly/bitly-api-python.git#egg=bitly_api
+-e hg+https://bitbucket.org/andrewgodwin/south/#egg=south
+-e hg+https://bitbucket.org/jespern/django-piston#egg=piston
