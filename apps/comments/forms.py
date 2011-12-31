@@ -8,3 +8,6 @@ class DestroyCommentsForm(forms.Form):
 
 class LockCommentsForm(forms.Form):
     pass
+
+class UnlockCommentsForm(forms.Form):
+    pass

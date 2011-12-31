@@ -1,7 +1,8 @@
 from piston.handler import BaseHandler
 from piston.resource import Resource
-from piston.utils import rc
+from piston.utils import rc, validate
 from project.libs.rest import Response
+from project.apps.post.forms import *
 
 class PublicTimelineHandler(BaseHandler):
     allowed_methods = ('GET',)
@@ -18,6 +19,7 @@ class HomeTimelineHandler(BaseHandler):
 class UserTimelineHandler(BaseHandler):
     allowed_methods = ('GET',)
     
+    @validate(UserTimelineForm, 'GET')
     def read(self, request):
         return Response.http(rc.ALL_OK,"")
 
@@ -30,13 +32,15 @@ class SuggestionsPostHandler(BaseHandler):
 class DestroyPostHandler(BaseHandler):
     allowed_methods = ('DELETE',)
     
+    @validate(DestroyPostForm, 'DELETE')
     def delete(self, request):
         return Response.http(rc.DELETED)
 
 class CreatePostHandler(BaseHandler):
     allowed_methods = ('POST',)
     
-    def create(self, request):
+    @validate(CreatePostForm, 'POST')
+    def create(self, request):     
         return Response.http(rc.CREATED,"")
 
 public_timeline_handler     = Resource(PublicTimelineHandler)

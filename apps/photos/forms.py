@@ -5,3 +5,9 @@ class PhotosPartOfForm(forms.Form):
 
 class ShowPhotosForm(forms.Form):
     pass
+
+class CreatePhotosForm(forms.Form):
+    pass
+
+class DestroyPhotosForm(forms.Form):
+    pass

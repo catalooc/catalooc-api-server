@@ -31,9 +31,11 @@ urlpatterns = patterns('',
     url(r'^account/totals.(?P<emitter_format>.+)$', totals_account_handler),
     url(r'^account/settings.(?P<emitter_format>.+)$', settings_account_handler),
     
+    url(r'^comments/(?P<photo_id>\w+)/list.(?P<emitter_format>.+)$', list_comments_handler),
     url(r'^comments/(?P<photo_id>\w+)/create.(?P<emitter_format>.+)$', create_comments_handler),
-    url(r'^comments/(?P<photo_id>\w+)/destroy.(?P<emitter_format>.+)$', destroy_comments_handler),
     url(r'^comments/(?P<photo_id>\w+)/lock.(?P<emitter_format>.+)$', lock_comments_handler),
+    url(r'^comments/(?P<photo_id>\w+)/unlock.(?P<emitter_format>.+)$', unlock_comments_handler),
+    url(r'^comments/destroy.(?P<emitter_format>.+)$', destroy_comments_handler),
     
     url(r'^favorites/list.(?P<emitter_format>.+)$', list_favorites_handler),
     url(r'^favorites/create.(?P<emitter_format>.+)$', create_favorites_handler),
@@ -44,19 +46,21 @@ urlpatterns = patterns('',
     url(r'^followers/destroy.(?P<emitter_format>.+)$', destroy_followers_handler),
     
     url(r'^photos/part_of/(?P<post_id>\w+).(?P<emitter_format>.+)$', photos_part_of_handler),
-    url(r'^photos/(?P<photo_id>\w+)/show.(?P<emitter_format>.+)$', show_photos_handler),
-    url(r'^photos/(?P<photo_id>\w+)/mark_feature.(?P<emitter_format>.+)$', show_photos_handler),
+    url(r'^photos/(?P<post_id>\w+)/create.(?P<emitter_format>.+)$', create_photos_handler),
+    url(r'^photos/mark_feature.(?P<emitter_format>.+)$', show_photos_handler),
+    url(r'^photos/show.(?P<emitter_format>.+)$', show_photos_handler),
+    url(r'^photos/destroy.(?P<emitter_format>.+)$', destroy_photos_handler),
     
     url(r'^post/public_timeline.(?P<emitter_format>.+)$', public_timeline_handler),
     url(r'^post/home_timeline.(?P<emitter_format>.+)$', home_timeline_handler),
     url(r'^post/user_timeline.(?P<emitter_format>.+)$', user_timeline_handler),
     url(r'^post/suggestions_post.(?P<emitter_format>.+)$', suggestions_post_handler),
-    url(r'^post/(?P<post_id>\w+)/destroy.(?P<emitter_format>.+)$', destroy_post_handler),
+    url(r'^post/destroy.(?P<emitter_format>.+)$', destroy_post_handler),
     url(r'^post/create.(?P<emitter_format>.+)$', create_post_handler),
     
     url(r'^search/find.(?P<emitter_format>.+)$', find_search_handler),
+    url(r'^search/users.(?P<emitter_format>.+)$', users_search_handler),
     
-    url(r'^users/search.(?P<emitter_format>.+)$', search_users_handler),
     url(r'^users/show.(?P<emitter_format>.+)$', show_users_handler),
     
     url(r'^vote/(?P<photo_id>\w+)/create.(?P<emitter_format>.+)$', create_vote_handler),

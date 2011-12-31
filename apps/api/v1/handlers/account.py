@@ -1,11 +1,13 @@
 from piston.handler import BaseHandler
 from piston.resource import Resource
-from piston.utils import rc
+from piston.utils import rc, validate
 from project.libs.rest import Response
+from project.apps.account.forms import *
 
 class VerifyCredentialsAccountHandler(BaseHandler):
     allowed_methods = ('GET',)
 
+    @validate(VerifyCredentialsAccountForm, 'GET')
     def read(self, request):
         return Response.http(rc.ALL_OK, "")
 
@@ -18,12 +20,14 @@ class EndSessionAccountHandler(BaseHandler):
 class UpdateProfileAccountHandler(BaseHandler):
     allowed_methods = ('PUT',)
 
+    @validate(UpdateProfileAccountForm, 'PUT')
     def update(self, request):
         return Response.http(rc.ALL_OK,"")
 
 class UpdateProfileImageAccountHandler(BaseHandler):
     allowed_methods = ('PUT',)
 
+    @validate(UpdateProfileImageAccountForm, 'PUT')
     def update(self, request):
         return Response.http(rc.ALL_OK,"")
 
@@ -38,7 +42,8 @@ class SettingsAccountHandler(BaseHandler):
 
     def read(self, request):
         return Response.http(rc.ALL_OK,"")
-    
+
+    @validate(SettingsAccountForm, 'PUT')    
     def update(self, request):
         return Response.http(rc.ALL_OK,"")
 
