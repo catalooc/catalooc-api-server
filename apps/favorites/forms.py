@@ -1,7 +1,10 @@
 from django import forms
 
 class CreateFavoritesForm(forms.Form):
-    pass
+    id      = forms.CharField()
+    why     = forms.CharField(required=False)
+    lat     = forms.FloatField()
+    lon     = forms.FloatField()
 
 class DestroyFavoritesForm(forms.Form):
-    pass
+    id      = forms.CharField()

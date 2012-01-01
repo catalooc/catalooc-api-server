@@ -1,13 +1,13 @@
 from django import forms
 
-class PhotosPartOfForm(forms.Form):
-    pass
-
 class ShowPhotosForm(forms.Form):
-    pass
+    id      = forms.CharField()
 
 class CreatePhotosForm(forms.Form):
-    pass
+    caption = forms.CharField()
+    photo   = forms.ImageField()
+    lat     = forms.FloatField()
+    lon     = forms.FloatField()
 
 class DestroyPhotosForm(forms.Form):
-    pass
+    id      = forms.CharField()

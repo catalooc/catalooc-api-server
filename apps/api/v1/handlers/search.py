@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from piston.handler import BaseHandler
 from piston.resource import Resource
 from piston.utils import rc, validate
@@ -16,7 +17,10 @@ class UsersSearchHandler(BaseHandler):
 
     @validate(UsersSearchForm, 'GET')
     def read(self, request):
-        return Response.http(rc.ALL_OK,"")
+        return User.objects.filter(
+            username__startswith    = request.form.cleaned_data['query'],
+            is_active               = True
+        )
 
 find_search_handler  = Resource(FindSearchHandler)
 users_search_handler = Resource(UsersSearchHandler)

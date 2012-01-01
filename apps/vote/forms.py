@@ -1,7 +1,9 @@
 from django import forms
 
 class CreateVoteForm(forms.Form):
-    pass
+    id      = forms.CharField()
+    lat     = forms.FloatField()
+    lon     = forms.FloatField()
 
 class DestroyVoteForm(forms.Form):
-    pass
+    id      = forms.CharField()

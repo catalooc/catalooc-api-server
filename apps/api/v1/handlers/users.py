@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from piston.handler import BaseHandler
 from piston.resource import Resource
 from piston.utils import rc, validate
@@ -10,6 +11,12 @@ class ShowUsersHandler(BaseHandler):
     
     @validate(ShowUsersForm, 'GET')
     def read(self, request):
-        return Response.http(rc.ALL_OK,"")
+        try:
+            return User.objects.get(
+                id          = request.form.cleaned_data['id'],
+                is_active   = True
+            )
+        except:
+            return Response.http(rc.NOT_FOUND, "")
 
 show_users_handler      = Resource(ShowUsersHandler)

@@ -1,7 +1,11 @@
 from django import forms
 
 class FindSearchForm(forms.Form):
-    pass
+    query       = forms.CharField()
+    lat         = forms.FloatField()
+    lon         = forms.FloatField()
 
 class UsersSearchForm(forms.Form):
-    pass
+    username    = forms.CharField()
+    lat         = forms.FloatField()
+    lon         = forms.FloatField()

@@ -1,7 +1,9 @@
 from django import forms
 
 class CreateFollowersForm(forms.Form):
-    pass
+    id      = forms.CharField()
+    lat     = forms.FloatField()
+    lon     = forms.FloatField()
 
 class DestroyFollowersForm(forms.Form):
-    pass
+    id      = forms.CharField()

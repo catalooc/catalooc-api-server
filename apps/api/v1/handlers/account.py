@@ -1,28 +1,46 @@
+from django.contrib.auth import authenticate, logout
 from piston.handler import BaseHandler
 from piston.resource import Resource
 from piston.utils import rc, validate
 from project.libs.rest import Response
 from project.apps.account.forms import *
+from project.apps.account.mongo import *
 
 class VerifyCredentialsAccountHandler(BaseHandler):
     allowed_methods = ('GET',)
 
     @validate(VerifyCredentialsAccountForm, 'GET')
     def read(self, request):
-        return Response.http(rc.ALL_OK, "")
+        cleaned     = request.form.cleaned_data
+        user        = authenticate(
+            username=cleaned['username'],
+            password=cleaned['password']
+        )
+        
+        if user is not None:
+            if user.is_active:
+                return Response.http(rc.ALL_OK, "")
+            else:
+                return Response.http(rc.BAD_REQUEST, "Your account has been disabled.")
+        else:
+            return Response.http(rc.BAD_REQUEST, "Your username or password were incorrect.")
 
 class EndSessionAccountHandler(BaseHandler):
     allowed_methods = ('DELETE',)
 
     def delete(self, request):
-        return Response.http(rc.DELETED,"")
+        logout(request)
+        return Response.http(rc.DELETED, "Your session is ended.")
 
 class UpdateProfileAccountHandler(BaseHandler):
     allowed_methods = ('PUT',)
 
     @validate(UpdateProfileAccountForm, 'PUT')
     def update(self, request):
-        return Response.http(rc.ALL_OK,"")
+        return Profile.managers.update(
+            { 'user' : request.user.id },
+            request.form.cleaned_data
+        )
 
 class UpdateProfileImageAccountHandler(BaseHandler):
     allowed_methods = ('PUT',)
@@ -35,17 +53,21 @@ class TotalsAccountHandler(BaseHandler):
     allowed_methods = ('GET',)
 
     def read(self, request):
-        return Response.http(rc.ALL_OK,"")
+        return Response.http(rc.ALL_OK, "")
 
 class SettingsAccountHandler(BaseHandler):
     allowed_methods = ('GET', 'PUT',)
 
+    @validate(ReadSettingsAccountForm, 'PUT')    
     def read(self, request):
-        return Response.http(rc.ALL_OK,"")
+        return Settings.managers.filter({ 'user' : request.user.id })
 
-    @validate(SettingsAccountForm, 'PUT')    
+    @validate(UpdateSettingsAccountForm, 'PUT')    
     def update(self, request):
-        return Response.http(rc.ALL_OK,"")
+        return Settings.managers.update(
+            { 'user' : request.user.id },
+            request.form.cleaned_data
+        )
 
 verify_credentials_account_handler      = Resource(VerifyCredentialsAccountHandler)
 end_session_account_handler             = Resource(EndSessionAccountHandler)

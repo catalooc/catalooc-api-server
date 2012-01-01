@@ -1,13 +1,15 @@
 from django import forms
 
 class CreateCommentsForm(forms.Form):
-    pass
+    comment = forms.CharField()
+    lat     = forms.FloatField()
+    lon     = forms.FloatField()
 
 class DestroyCommentsForm(forms.Form):
-    pass
+    id      = forms.CharField()
 
 class LockCommentsForm(forms.Form):
-    pass
+    id      = forms.CharField()
 
 class UnlockCommentsForm(forms.Form):
-    pass
+    id      = forms.CharField()
